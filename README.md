@@ -71,6 +71,8 @@ New-Item -ItemType Directory -Force .\data\environment_imports
 
 原始資料、匯入 CSV、API 金鑰及執行快取不隨本庫發布。示範報告只移除本機路徑，未重新分析或修改分數。
 
+程式資料夾用途：`judicial` 司法、`regulatory` 裁罰、`adverse_news` 新聞、`mops_announcements` 重大訊息、`company_names` 公司名稱對照、`credit_risk` 共用日期及風險指標、`verification` 證據驗證、`integrated_risk` 整合評分。`reports` 只放本次模擬報告。
+
 ## 輸出欄位對照
 
 四個模組共同的 `risk_assessment`：
