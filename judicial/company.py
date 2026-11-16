@@ -259,6 +259,13 @@ def main():
         if args.process_collected:
             collected = load_collected(args.process_collected, start, end)
             searches.append(dict(query=args.company, mode='collected_json', completed=False, limit_reached=False, errors=[]))
+            prior_path=root/'collection_manifest.json'
+            if prior_path.is_file():
+                prior=json.loads(prior_path.read_text(encoding='utf-8'))
+                same_window=prior.get('date_window',{}).get('start')==str(start) and prior.get('date_window',{}).get('end')==str(end)
+                same_documents={r['document_id'] for r in collected}=={r.get('document_id') for r in prior.get('documents',[])}
+                if prior.get('company')==args.company and same_window and same_documents and not prior.get('failures'):
+                    searches=prior.get('searches') or searches
         for query in ([] if args.process_collected else profile['search_names']):
             report = CollectionReport(query=query)
             try:
